@@ -1,0 +1,212 @@
+body {
+  font-family: sans-serif;
+  font-size: 18px;
+  color: white;
+  background: #111;
+}
+
+fieldset {
+  padding: 0;
+  border: none;
+  margin: 0;
+}
+label,
+legend {
+  display: block;
+  color: #ccc;
+  margin: 1rem 0 0.5rem;
+}
+label:first-child {
+  margin-top: 0;
+}
+fieldset {
+  margin-top: 1rem;
+}
+input[type="range"] {
+  width: 100%;
+}
+input[type="color"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 2px solid white;
+  display: inline-block;
+  margin-right: 0.3rem;
+}
+input[type="color"]:last-child {
+  margin-right: 0;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+}
+hr {
+  width: 100%;
+  height: 1px;
+  margin: 2rem 0;
+  padding: 0;
+  border: none;
+  background: #666;
+}
+form button {
+  margin-bottom: 1rem;
+}
+
+.app {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.select-image-prompt {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+.select-image-prompt form {
+  border: 2px solid #aaa;
+  background: #333;
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+.pattern-container {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.pattern-preview {
+  flex-grow: 1;
+  position: relative;
+}
+.pattern-controls {
+  width: 360px;
+  padding: 1rem;
+  box-sizing: border-box;
+  background: #222;
+}
+
+.input-pattern-group label {
+  width: 100%;
+  height: 40px;
+  position: relative;
+  box-sizing: border-box;
+  line-height: 40px;
+  padding: 0 1rem;
+  color: white;
+}
+.input-pattern-group input,
+.input-pattern-group .pattern-text {
+  position: relative;
+  z-index: 1;
+}
+.input-pattern-group input {
+  visibility: hidden;
+}
+.input-pattern-group .pattern-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 30%;
+  background-repeat: repeat;
+  z-index: 0;
+  box-sizing: border-box;
+}
+.input-pattern-group input:checked ~ .pattern-bg {
+  border: 2px solid white;
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.svg-container {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+}
+.loading p {
+  display: inline-block;
+  font-size: 2.4rem;
+}
+.cube-grid {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+}
+.cube-grid .cube {
+  width: 33%;
+  height: 33%;
+  background-color: #333;
+  float: left;
+  animation: cubeGridScaleDelay 1.3s infinite ease-in-out;
+}
+.cube-grid .cube1 { animation-delay: 0.2s; }
+.cube-grid .cube2 { animation-delay: 0.3s; }
+.cube-grid .cube3 { animation-delay: 0.4s; }
+.cube-grid .cube4 { animation-delay: 0.1s; }
+.cube-grid .cube5 { animation-delay: 0.2s; }
+.cube-grid .cube6 { animation-delay: 0.3s; }
+.cube-grid .cube7 { animation-delay: 0s; }
+.cube-grid .cube8 { animation-delay: 0.1s; }
+.cube-grid .cube9 { animation-delay: 0.2s; }
+@keyframes cubeGridScaleDelay {
+  0%, 70%, 100% {
+    transform: scale3D(1, 1, 1);
+  } 35% {
+    transform: scale3D(0, 0, 1);
+  }
+}
+
+.app[data-state="start"] .select-image-prompt {
+  display: flex;
+}
+.app[data-state="loading"] .pattern-container,
+.app[data-state="loaded"] .pattern-container {
+  display: flex;
+}
+.app[data-state="loading"] .loading {
+  display: flex;
+}
+.app[data-state="loaded"] .svg-container {
+  display: flex;
+}

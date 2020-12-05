@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 24">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: lime;
+      }
+
+      .cls-1, .cls-2, .cls-4 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: red;
+      }
+
+      .cls-3 {
+        font-size: 12px;
+        font-family: ArialMT, Arial;
+      }
+    </style>
+  </defs>
+  <g id="colors">
+    <g id="group2">
+      <polyline id="top" class="cls-1" points="74.9 0 46.92 14.39 46.92 0 74.9 0"/>
+      <polygon id="bottom" class="cls-1" points="85 1.67 85 15.28 83.04 19.5 75.91 24 47.28 24 49.96 19.02 85 1.67"/>
+    </g>
+    <g id="group1">
+      <polygon id="bottom-2" data-name="bottom" class="cls-2" points="2.84 1.67 2.84 15.28 4.8 19.5 11.93 24 40.56 24 37.88 19.02 2.84 1.67"/>
+      <polyline id="top-2" data-name="top" class="cls-2" points="12.94 0 40.92 14.39 40.92 0 12.94 0"/>
+    </g>
+  </g>
+  <g id="numbers">
+    <g id="group2-2" data-name="group2">
+      <text id="number" class="cls-3" transform="translate(62.66 24.2)">2</text>
+      <text id="numberTop" class="cls-3" transform="translate(48.66 9.2)">2</text>
+    </g>
+    <g id="group1-2" data-name="group1">
+      <text id="number-2" data-name="number" class="cls-3" transform="translate(18.66 24.2)">1</text>
+      <text id="numberTop-2" data-name="numberTop" class="cls-3" transform="translate(30.66 9.2)">1</text>
+    </g>
+  </g>
+  <g id="lines">
+    <path class="cls-4" d="M10,0,40,15l2,1V2.18A10,10,0,0,0,41.76,0H39.7A8,8,0,0,1,40,2.18V12.76L14.47,0ZM41.76,24a10,10,0,0,0-5.29-6.76L4,1,2,0V13.82a10,10,0,0,0,5.53,8.94L10,24h4.47L8.42,21A8,8,0,0,1,4,13.82V3.24L35.58,19a8,8,0,0,1,4.12,5ZM78,24l2.47-1.24A10,10,0,0,0,86,13.82V0L84,1,51.53,17.24A10,10,0,0,0,46.24,24H48.3a8,8,0,0,1,4.12-5L84,3.24V13.82A8,8,0,0,1,79.58,21l-6,3ZM78,0,48,15l-2,1V2.18A10,10,0,0,1,46.24,0H48.3A8,8,0,0,0,48,2.18V12.76L73.53,0Z"/>
+  </g>
+</svg>

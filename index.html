@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Color by Number</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="stylesheet" href="css/vendor/normalize.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+
+  <div id="app" class="app" data-state="start">
+    <div id="select-image-prompt" class="select-image-prompt">
+      <form id="select-image-form">
+        <label for="input-image">Choose an image:</label>
+        <input type="file" id="input-image" name="image" class="input-image input" accept="image/*" />
+      </form>
+    </div>
+    <div id="pattern-container" class="pattern-container">
+      <div id="pattern-preview" class="pattern-preview">
+        <div class="svg-container">
+          <svg id="pattern"></svg>
+        </div>
+        <div class="loading">
+          <div>
+            <div class="cube-grid">
+              <div class="cube cube1"></div>
+              <div class="cube cube2"></div>
+              <div class="cube cube3"></div>
+              <div class="cube cube4"></div>
+              <div class="cube cube5"></div>
+              <div class="cube cube6"></div>
+              <div class="cube cube7"></div>
+              <div class="cube cube8"></div>
+              <div class="cube cube9"></div>
+            </div>
+            <p>Processing image data...</p>
+          </div>
+        </div>
+      </div>
+      <div id="pattern-controls" class="pattern-controls">
+        <form id="pattern-controls-form">
+          <fieldset>
+            <legend>Choose pattern</legend>
+            <div id="pattern-inputs" class="radio-group input-pattern-group">
+              <label for="input-pattern-autumn">
+                <input type="radio" name="pattern" id="input-pattern-autumn" value="autumn" checked class="input input-pattern input-refresh" />
+                <span class="pattern-text visually-hidden">Autumn pattern</span>
+                <div class="pattern-bg" style="background-image: url(svg/guides/autumn.svg);"></div>
+              </label>
+            </div>
+          </fieldset>
+
+          <label for="input-color-count">Color count: <span id="input-color-count-value">6</span></label>
+          <input type="range" id="input-color-count" name="color-count" min="2" max="12" value="6" class="input input-refresh" data-update="#input-color-count-value" />
+
+          <label for="input-pattern-columns">Pattern columns: <span id="input-pattern-columns-value">50</span></label>
+          <input type="range" id="input-pattern-columns" name="pattern-columns" min="10" max="100" value="50" class="input input-refresh" data-update="#input-pattern-columns-value" />
+
+          <fieldset>
+            <legend>Color palette</legend>
+            <div class="color-group"></div>
+          </fieldset>
+
+          <hr />
+
+          <button type="button">Download result as SVG</button>
+          <button type="button">Download result as PNG</button>
+
+          <hr />
+
+          <label for="new-input-image">Choose new image:</label>
+          <input type="file" id="new-input-image" name="image" class="input input-image" accept="image/*" />
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="hidden-canvas" class="visually-hidden">
+    <canvas id="image-data"></canvas>
+  </div>
+
+  <div id="svg-templates" class="visually-hidden">
+
+  </div>
+
+  <script src="js/vendor/jquery-3.5.1.min.js"></script>
+  <script src="js/vendor/rgbquant.js"></script>
+
+  <script src="js/app.js"></script>
+</body>
+
+</html>

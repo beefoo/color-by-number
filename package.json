@@ -1,0 +1,10 @@
+{
+  "name": "color-by-number",
+  "description": "Color by Number",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
+}
