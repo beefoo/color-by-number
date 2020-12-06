@@ -47,13 +47,13 @@ input[type="color"]::-webkit-color-swatch {
 hr {
   width: 100%;
   height: 1px;
-  margin: 2rem 0;
+  margin: 1rem 0;
   padding: 0;
   border: none;
   background: #666;
 }
 form button {
-  margin-bottom: 1rem;
+  cursor: pointer;
 }
 
 .app {
@@ -93,6 +93,7 @@ form button {
 .pattern-preview {
   flex-grow: 1;
   position: relative;
+  overflow: hidden;
 }
 .pattern-controls {
   width: 360px;
@@ -109,6 +110,7 @@ form button {
   line-height: 40px;
   padding: 0 1rem;
   color: white;
+  cursor: pointer;
 }
 .input-pattern-group input,
 .input-pattern-group .pattern-text {
@@ -133,6 +135,15 @@ form button {
   border: 2px solid white;
 }
 
+.checkbox-group {
+  margin-top: 1rem;
+}
+.checkbox-group label {
+  display: inline-block;
+  margin-right: 0.4rem;
+  margin-top: 0.4rem;
+}
+
 .visually-hidden {
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
@@ -145,13 +156,20 @@ form button {
 
 .svg-container {
   display: none;
-  width: 100%;
-  height: 100%;
+  width: 95%;
+  height: 95%;
+  position: absolute;
+  top: 2.5%;
+  left: 2.5%;
+  justify-content: center;
+  align-items: center;
+  transform-origin: 50% 50%;
+}
+.svg-container svg {
   position: absolute;
   top: 0;
   left: 0;
-  justify-content: center;
-  align-items: center;
+  transform-origin: 0 0;
 }
 
 .loading {
@@ -197,16 +215,16 @@ form button {
   }
 }
 
-.app[data-state="start"] .select-image-prompt {
+.app.start-state .select-image-prompt {
   display: flex;
 }
-.app[data-state="loading"] .pattern-container,
-.app[data-state="loaded"] .pattern-container {
+.app.loading-state .pattern-container,
+.app.loaded-state .pattern-container {
   display: flex;
 }
-.app[data-state="loading"] .loading {
+.app.loading-state .loading {
   display: flex;
 }
-.app[data-state="loaded"] .svg-container {
+.app.loaded-state .svg-container {
   display: flex;
 }

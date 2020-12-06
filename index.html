@@ -18,7 +18,7 @@
 
 <body>
 
-  <div id="app" class="app" data-state="start">
+  <div id="app" class="app start-state">
     <div id="select-image-prompt" class="select-image-prompt">
       <form id="select-image-form">
         <label for="input-image">Choose an image:</label>
@@ -27,8 +27,8 @@
     </div>
     <div id="pattern-container" class="pattern-container">
       <div id="pattern-preview" class="pattern-preview">
-        <div class="svg-container">
-          <svg id="pattern"></svg>
+        <div id="svg-container" class="svg-container">
+          <svg id="output-pattern" xmlns="http://www.w3.org/2000/svg"></svg>
         </div>
         <div class="loading">
           <div>
@@ -63,18 +63,32 @@
           <label for="input-color-count">Color count: <span id="input-color-count-value">6</span></label>
           <input type="range" id="input-color-count" name="color-count" min="2" max="12" value="6" class="input input-refresh" data-update="#input-color-count-value" />
 
-          <label for="input-pattern-columns">Pattern columns: <span id="input-pattern-columns-value">50</span></label>
-          <input type="range" id="input-pattern-columns" name="pattern-columns" min="10" max="100" value="50" class="input input-refresh" data-update="#input-pattern-columns-value" />
+          <label for="input-pattern-columns">Pattern columns: <span id="input-pattern-columns-value">20</span></label>
+          <input type="range" id="input-pattern-columns" name="pattern-columns" min="8" max="40" value="20" class="input input-refresh" data-update="#input-pattern-columns-value" />
 
           <fieldset>
             <legend>Color palette</legend>
             <div class="color-group"></div>
           </fieldset>
 
+          <fieldset>
+            <legend>Display:</legend>
+            <div class="checkbox-group">
+              <label for="input-display-colors"><input id="input-display-colors" type="checkbox" class="input" name="display" value="colors" checked /> Colors</label>
+              <label for="input-display-numbers"><input id="input-display-numbers" type="checkbox" class="input" name="display" value="numbers" checked /> Numbers</label>
+              <label for="input-display-lines"><input id="input-display-lines" type="checkbox" class="input" name="display" value="lines" checked /> Lines</label>
+            </div>
+          </fieldset>
+
+          <label for="input-zoom">Zoom: <span id="input-zoom-value">1</span></label>
+          <input type="range" id="input-zoom" name="zoom" min="0.5" max="10" step="0.01" value="1" class="input" data-update="#input-zoom-value" />
+
           <hr />
 
-          <button type="button">Download result as SVG</button>
-          <button type="button">Download result as PNG</button>
+          <p>
+            <button type="button">Download SVG</button>
+            <button type="button">Download PNG</button>
+          </p>
 
           <hr />
 
