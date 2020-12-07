@@ -28,7 +28,7 @@
     <div id="pattern-container" class="pattern-container">
       <div id="pattern-preview" class="pattern-preview">
         <div id="svg-container" class="svg-container">
-          <svg id="output-pattern" xmlns="http://www.w3.org/2000/svg"></svg>
+          <div id="svg-positioner" class="svg-positioner"><svg id="output-pattern" xmlns="http://www.w3.org/2000/svg"></svg></div>
         </div>
         <div class="loading">
           <div>
@@ -57,6 +57,11 @@
                 <span class="pattern-text visually-hidden">Autumn pattern</span>
                 <div class="pattern-bg" style="background-image: url(svg/guides/autumn.svg);"></div>
               </label>
+              <label for="input-pattern-hexagons">
+                <input type="radio" name="pattern" id="input-pattern-hexagons" value="hexagons" class="input input-pattern input-refresh" />
+                <span class="pattern-text visually-hidden">Hexagon pattern</span>
+                <div class="pattern-bg" style="background-image: url(svg/guides/hexagons.svg);"></div>
+              </label>
             </div>
           </fieldset>
 
@@ -64,7 +69,7 @@
           <input type="range" id="input-color-count" name="color-count" min="2" max="12" value="6" class="input input-refresh" data-update="#input-color-count-value" />
 
           <label for="input-pattern-columns">Pattern columns: <span id="input-pattern-columns-value">20</span></label>
-          <input type="range" id="input-pattern-columns" name="pattern-columns" min="8" max="40" value="20" class="input input-refresh" data-update="#input-pattern-columns-value" />
+          <input type="range" id="input-pattern-columns" name="pattern-columns" min="8" max="100" value="20" class="input input-refresh" data-update="#input-pattern-columns-value" />
 
           <fieldset>
             <legend>Color palette</legend>
@@ -86,8 +91,8 @@
           <hr />
 
           <p>
-            <button type="button">Download SVG</button>
-            <button type="button">Download PNG</button>
+            <button type="button" class="download-button download-svg" data-downloading="Downloading..." data-download="Download SVG">Download SVG</button>
+            <button type="button" class="download-button download-png" data-downloading="Downloading..." data-download="Download PNG">Download PNG</button>
           </p>
 
           <hr />

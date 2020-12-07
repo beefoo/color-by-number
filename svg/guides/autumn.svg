@@ -18,12 +18,12 @@
   </g>
   <g id="numbers">
     <g data-group="1">
-      <text data-group="1" data-fill="#shape-1-1" data-only="top" class="number" data-x="19" data-y="24" transform="translate(18.66 24.2)" style="font-size: 12px">1</text>
-      <text data-group="1" data-fill="#shape-1-2" class="number" data-x="19" data-y="0" transform="translate(30.66 9.2)" style="font-size: 12px">1</text>
+      <text data-group="1" data-fill="#shape-1-1" data-display="yes" class="number" data-x="19" data-y="24" transform="translate(18.66 24.2)">1</text>
+      <text data-group="1" data-fill="#shape-1-2" data-display="no" class="number" data-x="19" data-y="0" transform="translate(30.66 9.2)">1</text>
     </g>
     <g data-group="2">
-      <text data-group="2" data-fill="#shape-2-1" data-only="top" class="number" data-x="63" data-y="24" transform="translate(62.66 24.2)" style="font-size: 12px">2</text>
-      <text data-group="2" data-fill="#shape-2-2" class="number" data-x="63" data-y="0" transform="translate(48.66 9.2)" style="font-size: 12px">2</text>
+      <text data-group="2" data-fill="#shape-2-1" data-display="yes" class="number" data-x="63" data-y="24" transform="translate(62.66 24.2)">2</text>
+      <text data-group="2" data-fill="#shape-2-2" data-display="no" class="number" data-x="63" data-y="0" transform="translate(48.66 9.2)">2</text>
     </g>
   </g>
   <g id="main">

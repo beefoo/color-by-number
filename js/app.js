@@ -1,10 +1,83 @@
 'use strict';
 
+function copyStylesInline(destinationNode, sourceNode) {
+   var containerElements = ["svg","g"];
+   for (var cd = 0; cd < destinationNode.childNodes.length; cd++) {
+       var child = destinationNode.childNodes[cd];
+       if (containerElements.indexOf(child.tagName) != -1) {
+            copyStylesInline(child, sourceNode.childNodes[cd]);
+            continue;
+       }
+       var style = sourceNode.childNodes[cd].currentStyle || window.getComputedStyle(sourceNode.childNodes[cd]);
+       if (style == "undefined" || style == null) continue;
+       for (var st = 0; st < style.length; st++){
+            child.style.setProperty(style[st], style.getPropertyValue(style[st]));
+       }
+   }
+}
+
+function triggerDownload (imgURI, fileName) {
+  var evt = new MouseEvent("click", {
+    view: window,
+    bubbles: false,
+    cancelable: true
+  });
+  var a = document.createElement("a");
+  a.setAttribute("download", fileName);
+  a.setAttribute("href", imgURI);
+  a.setAttribute("target", '_blank');
+  a.dispatchEvent(evt);
+}
+
+function downloadPng(svg, fileName) {
+  var copy = svg.cloneNode(true);
+  copyStylesInline(copy, svg);
+  var canvas = document.createElement("canvas");
+  var bbox = svg.getBBox();
+  canvas.width = bbox.width;
+  canvas.height = bbox.height;
+  var ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, bbox.width, bbox.height);
+  var data = (new XMLSerializer()).serializeToString(copy);
+  var DOMURL = window.URL || window.webkitURL || window;
+  var img = new Image();
+  var svgBlob = new Blob([data], {type: "image/svg+xml;charset=utf-8"});
+  var url = DOMURL.createObjectURL(svgBlob);
+  img.onload = function () {
+    ctx.drawImage(img, 0, 0);
+    DOMURL.revokeObjectURL(url);
+    if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob)
+    {
+        var blob = canvas.msToBlob();
+        navigator.msSaveOrOpenBlob(blob, fileName);
+    }
+    else {
+        var imgURI = canvas
+            .toDataURL("image/png")
+            .replace("image/png", "image/octet-stream");
+        triggerDownload(imgURI, fileName);
+    }
+    canvas.remove();
+  };
+  img.src = url;
+}
+
+function downloadSvg(svg, fileName) {
+  var copy = svg.cloneNode(true);
+  copyStylesInline(copy, svg);
+  var data = (new XMLSerializer()).serializeToString(copy);
+  var domUrl = window.URL || window.webkitURL || window;
+  var svgBlob = new Blob([data], {type: "image/svg+xml;charset=utf-8"});
+  var url = domUrl.createObjectURL(svgBlob);
+  triggerDownload(url, fileName);
+}
+
 var App = (function() {
 
   function App(config) {
     var defaults = {
-      svgGuidePath: 'svg/guides/'
+      svgGuidePath: 'svg/guides/',
+      keyWidth: 100
     };
     this.opt = $.extend({}, defaults, config);
     this.init();
@@ -85,10 +158,30 @@ var App = (function() {
     this.imgCanvas = $('#image-data')[0];
     this.$app = $('#app');
     this.$svgContainer = $('#svg-container');
+    this.$svgPositioner = $('#svg-positioner');
     this.$svg = $('#output-pattern');
     this.colorCount = parseInt($('#input-color-count').val());
     this.loadSVGPatterns();
     this.loadListeners();
+  };
+
+  App.prototype.downloadPng = function($button){
+    var _this = this;
+    this.setDownloading($button, true);
+    setTimeout(function(){
+      downloadPng(_this.$svg[0], 'pattern.png');
+      _this.setDownloading($button, false);
+    }, 50);
+
+  };
+
+  App.prototype.downloadSvg = function($button){
+    var _this = this;
+    this.setDownloading($button, true);
+    setTimeout(function(){
+      downloadSvg(_this.$svg[0], 'pattern.svg');
+      _this.setDownloading($button, false);
+    }, 50);
   };
 
   App.prototype.loadListeners = function(){
@@ -133,6 +226,22 @@ var App = (function() {
 
     $('input[name="zoom"]').on('input', function(e){
       _this.zoom(parseFloat($(this).val()));
+    });
+
+    $('.download-png').on('click', function(e){
+      if (_this.isDownloading) {
+        console.log('Already downloading...');
+        return;
+      }
+      _this.downloadPng($(this));
+    });
+
+    $('.download-svg').on('click', function(e){
+      if (_this.isDownloading) {
+        console.log('Already downloading...');
+        return;
+      }
+      _this.downloadSvg($(this));
     });
 
   };
@@ -185,6 +294,7 @@ var App = (function() {
     }
 
     this.setLoading(true);
+    this.srcPalette = [];
 
     var _this = this;
     var reader = new FileReader();
@@ -253,7 +363,7 @@ var App = (function() {
       var ty = transform[1];
       var group = $el.attr('data-group') || 0;
       var groupIndex = parseInt(group) - 1;
-      var restrictTo = $el.attr('data-only') || false;
+      var showNumber = ($el.attr('data-display') == 'yes');
       var $fillEl = $svg.find($el.attr('data-fill')).first();
       return {
         x: x,
@@ -261,7 +371,7 @@ var App = (function() {
         tx: tx,
         ty: ty,
         groupIndex: groupIndex,
-        restrictTo: restrictTo,
+        showNumber: showNumber,
         html: $el.prop('outerHTML'),
         fillShapeId: $el.attr('data-fill'),
         fillShapeHtml: $fillEl.prop('outerHTML')
@@ -294,7 +404,7 @@ var App = (function() {
   App.prototype.refresh = function(){
     var colorCount = parseInt($('#input-color-count').val());
     var columnCount = parseInt($('#input-pattern-columns').val());
-    var patternName = $('input[name="pattern"]').val();
+    var patternName = $('input[name="pattern"]:checked').val();
 
     // new color count, re-quantize!
     if (this.colorCount !== colorCount) {
@@ -312,9 +422,12 @@ var App = (function() {
     }
     var $svgContainer = this.$svgContainer;
     var $svg = this.$svg;
+    var $svgPositioner = this.$svgPositioner;
     var pat = this.svgTemplates[patternName];
     var aspectRatio = this.srcWidth / this.srcHeight;
-    var outWidth = pat.width * columnCount;
+    var artWidth = pat.width * columnCount;
+    var margin = 20;
+    var outWidth = artWidth + this.opt.keyWidth + margin;
     var outHeight = outWidth / aspectRatio;
     var rowCount = Math.floor(outHeight / pat.height);
     outHeight = pat.height * rowCount;
@@ -330,12 +443,10 @@ var App = (function() {
     var scaleX = containerW / outWidth;
     var scaleY = containerH / outHeight;
     var scale = Math.min(scaleX, scaleY);
-    if (scale < 1){
-      var translateX = 0;
-      var scaledW = outWidth * scale;
-      if (scaledW < containerW) translateX = (containerW-scaledW) * 0.5;
-      $svg.css('transform', 'translate3D('+translateX+'px, 0, 0) scale3D('+scale+', '+scale+', 1)');
-    }
+    var translateX = 0;
+    var scaledW = outWidth * scale;
+    if (scaledW < containerW) translateX = (containerW-scaledW) * 0.5;
+    $svgPositioner.css('transform', 'translate3D('+translateX+'px, 0, 0) scale3D('+scale+', '+scale+', 1)');
 
     var html = '';
     // add definitions
@@ -373,12 +484,12 @@ var App = (function() {
         $.each(pat.points, function(i, p){
           var pX = p.x + x;
           var pY = p.y + y;
-          var nx = clamp(pX / outWidth);
+          var nx = clamp(pX / artWidth);
           var ny = clamp(pY / outHeight);
           var pIndex = getPaletteColor(nx, ny, pixels, srcWidth, srcHeight, palette);
           var fillColor = rgbToHex(palette[pIndex]);
           cHtml += '<use xlink:href="'+p.fillShapeId+'" transform="translate('+x+','+y+')" fill="'+fillColor+'"/>';
-          if (p.restrictTo !== false){
+          if (p.showNumber){
             var tX = p.tx + x;
             var tY = p.ty + y;
             nHtml += '<text transform="translate('+tX+' '+tY+')" style="font-size: 12px">'+(pIndex+1)+'</text>'
@@ -402,10 +513,40 @@ var App = (function() {
     // add numbers
     html += nHtml;
 
+    // draw the key
+    html += '<g id="key">';
+    var keyWidth = this.opt.keyWidth;
+      $.each(this.colorHexs, function(i, hex){
+        var x = artWidth + margin;
+        var y = i * (keyWidth + margin);
+        var fontSize = 36;
+        var tx = x + (keyWidth - fontSize) * 0.6;
+        var ty = y + keyWidth - (keyWidth - fontSize) * 0.6;
+        html += '<rect x="'+x+'" y="'+y+'" width="'+keyWidth+'" height="'+keyWidth+'" fill="'+hex+'"/>';
+        var tColor = 'black';
+        var rgb = hexToRgb(hex);
+        if ((rgb[0]+rgb[1]+rgb[2])/3.0 < 100) tColor = 'white';
+        html += '<text x="'+tx+'" y="'+ty+'" style="font-size: '+fontSize+'px" fill="'+tColor+'">'+(i+1)+'</text>';
+      });
+    html += '</g>';
+
     $svg.html(html);
     this.updateDisplayLayers();
 
     this.setLoading(false);
+  };
+
+  App.prototype.setDownloading = function($button, isDownloading){
+    this.isDownloading = isDownloading;
+
+    if (isDownloading){
+      $button.text($button.attr('data-downloading'));
+      $('.download-button').prop("disabled", true);
+
+    } else {
+      $button.text($button.attr('data-download'));
+      $('.download-button').prop("disabled", false);
+    }
   };
 
   App.prototype.setLoading = function(isLoading){
