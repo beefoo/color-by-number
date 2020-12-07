@@ -102,6 +102,9 @@ form button {
   background: #222;
 }
 
+.input-pattern-group {
+  margin-bottom: -30px;
+}
 .input-pattern-group label {
   width: 60px;
   height: 60px;

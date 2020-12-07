@@ -1,20 +1,20 @@
 'use strict';
 
-function copyStylesInline(destinationNode, sourceNode) {
-   var containerElements = ["svg","g"];
-   for (var cd = 0; cd < destinationNode.childNodes.length; cd++) {
-       var child = destinationNode.childNodes[cd];
-       if (containerElements.indexOf(child.tagName) != -1) {
-            copyStylesInline(child, sourceNode.childNodes[cd]);
-            continue;
-       }
-       var style = sourceNode.childNodes[cd].currentStyle || window.getComputedStyle(sourceNode.childNodes[cd]);
-       if (style == "undefined" || style == null) continue;
-       for (var st = 0; st < style.length; st++){
-            child.style.setProperty(style[st], style.getPropertyValue(style[st]));
-       }
-   }
-}
+// function copyStylesInline(destinationNode, sourceNode) {
+//    var containerElements = ["svg","g"];
+//    for (var cd = 0; cd < destinationNode.childNodes.length; cd++) {
+//        var child = destinationNode.childNodes[cd];
+//        if (containerElements.indexOf(child.tagName) != -1) {
+//             copyStylesInline(child, sourceNode.childNodes[cd]);
+//             continue;
+//        }
+//        var style = sourceNode.childNodes[cd].currentStyle || window.getComputedStyle(sourceNode.childNodes[cd]);
+//        if (style == "undefined" || style == null) continue;
+//        for (var st = 0; st < style.length; st++){
+//             child.style.setProperty(style[st], style.getPropertyValue(style[st]));
+//        }
+//    }
+// }
 
 function triggerDownload (imgURI, fileName) {
   var evt = new MouseEvent("click", {
@@ -30,15 +30,17 @@ function triggerDownload (imgURI, fileName) {
 }
 
 function downloadPng(svg, fileName) {
-  var copy = svg.cloneNode(true);
-  copyStylesInline(copy, svg);
+  // var copy = svg.cloneNode(true);
+  // copyStylesInline(copy, svg);
+  // var data = (new XMLSerializer()).serializeToString(copy);
+  var data = (new XMLSerializer()).serializeToString(svg);
   var canvas = document.createElement("canvas");
   var bbox = svg.getBBox();
   canvas.width = bbox.width;
   canvas.height = bbox.height;
   var ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, bbox.width, bbox.height);
-  var data = (new XMLSerializer()).serializeToString(copy);
+
   var DOMURL = window.URL || window.webkitURL || window;
   var img = new Image();
   var svgBlob = new Blob([data], {type: "image/svg+xml;charset=utf-8"});
@@ -63,9 +65,7 @@ function downloadPng(svg, fileName) {
 }
 
 function downloadSvg(svg, fileName) {
-  var copy = svg.cloneNode(true);
-  copyStylesInline(copy, svg);
-  var data = (new XMLSerializer()).serializeToString(copy);
+  var data = (new XMLSerializer()).serializeToString(svg);
   var domUrl = window.URL || window.webkitURL || window;
   var svgBlob = new Blob([data], {type: "image/svg+xml;charset=utf-8"});
   var url = domUrl.createObjectURL(svgBlob);
@@ -425,6 +425,9 @@ var App = (function() {
     var $svgPositioner = this.$svgPositioner;
     var pat = this.svgTemplates[patternName];
     var aspectRatio = this.srcWidth / this.srcHeight;
+    var targetColumnWidth = 40;
+    var columnsPerPattern = Math.round(pat.width / targetColumnWidth);
+    columnCount = clamp(Math.round(columnCount / columnsPerPattern), 2, 200);
     var artWidth = pat.width * columnCount;
     var margin = 20;
     var outWidth = artWidth + this.opt.keyWidth + margin;
