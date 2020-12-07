@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42 44">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: lime;
+      }
+
+      .cls-2 {
+        fill: red;
+      }
+
+      .cls-3 {
+        font-size: 12px;
+        font-family: ArialMT, Arial;
+      }
+
+      .cls-4 {
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <g id="colors">
+    <rect id="top" class="cls-1" width="42" height="22"/>
+    <rect id="bottomLeft" class="cls-2" y="22" width="21" height="22"/>
+    <rect id="bottomRight" class="cls-2" x="21.04" y="22" width="21" height="22"/>
+  </g>
+  <g id="numbers">
+    <text id="top-2" data-name="top" class="cls-3" transform="translate(17.21 15)">1</text>
+    <text id="bottomLeft-2" data-name="bottomLeft" class="cls-3" transform="translate(-3.34 36.77)">2</text>
+    <text id="bottomRight-2" data-name="bottomRight" class="cls-3" transform="translate(38.61 36.05)">2</text>
+  </g>
+  <g id="main">
+    <path id="pattern" class="cls-4" d="M0,0H42V44H0ZM1,1H41V21H1ZM0,23H20V43H0Zm22,0H42V43H22Z"/>
+  </g>
+</svg>

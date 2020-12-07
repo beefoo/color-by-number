@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 30">
+  <defs>
+    <style>
+      .number {
+        font-size: 12px;
+        font-family: ArialMT, Arial;
+        display: none;
+      }
+    </style>
+  </defs>
+  <g id="colors">
+    <polygon id="center" points="0 30 28.27 30 43.48 24 63.32 19.89 87.2 19.89 104.31 24 120.11 30 150 30 150 19.42 130.8 18 110.48 11.22 94.45 6 75.55 4.33 54.29 6 39.08 10.62 22.8 16.46 9.38 18.94 0 19.42 0 30" fill-rule="evenodd"/>
+    <polygon id="bottom" points="28.27 30 50.2 22.61 68.55 19.89 81.97 19.89 95.28 21 109.07 25.81 120.11 30 28.27 30" fill-rule="evenodd"/>
+    <polygon id="top" points="0 4.33 0 19.42 13.42 18.82 30.8 13.59 50.34 7.2 64.5 4.33 84.94 4.33 100.62 7.84 117.6 13.59 131.87 18.08 143.16 19.42 150 19.42 150 4.33 131.16 3 122.01 0 25.54 0 12.58 3.61 0 4.33" fill-rule="evenodd"/>
+    <polygon id="left" points="0 4.33 12.58 3.61 26.96 0 0 0 0 4.33" fill-rule="evenodd"/>
+    <polygon id="right" points="150 4.33 137.42 3.61 123.04 0 150 0 150 4.33" fill-rule="evenodd"/>
+  </g>
+  <g id="numbers">
+    <text id="ncenter" class="number" data-display="yes" data-fill="#center" data-x="75" data-y="15" transform="translate(71.66 16.47)">1</text>
+    <text id="nbottom" class="number" data-display="yes" data-fill="#bottom" data-x="75" data-y="30" transform="translate(71.83 31.47)">2</text>
+    <text id="ntop" class="number" data-display="no" data-fill="#top" data-x="75" data-y="0" transform="translate(72.18 1)">2</text>
+    <text id="nleft" class="number" data-display="no" data-fill="#left" data-x="75" data-y="-15" transform="translate(1.3 1)">1</text>
+    <text id="nright" class="number" data-display="no" data-fill="#right" data-x="75" data-y="-15" transform="translate(142.88 1)">1</text>
+  </g>
+  <g id="main">
+    <path class="pattern" d="M31.78,30l1.63-.6,2.65-1C50.46,23,59.47,21,75,21s23,1.83,36.94,7.39c1.44.58,2.81,1.11,4.13,1.61h9.34c-3.77-1.1-7.71-2.54-12.35-4.39C98.83,19.92,90.84,18,75,18s-25.28,2.1-40,7.59l-2.65,1C28.65,28,25.37,29.1,22.27,30Zm0-30C19.89,4.34,12.12,6,0,6H0V3A73.8,73.8,0,0,0,22.27,0Zm84.29,0C127.86,4.45,135.75,6,150,6V3c-10.26,0-17.08-.81-24.59-3ZM0,21c12.66,0,20.58-1.82,33.41-6.6l2.65-1C50.46,8,59.47,6,75,6s23,1.83,36.94,7.39C126.17,19.08,134.16,21,150,21V18c-15.41,0-23-1.83-36.94-7.39C98.83,4.92,90.84,3,75,3S49.72,5.1,35,10.59l-2.65,1C19.84,16.26,12.25,18,0,18v3Z" fill-rule="evenodd" fill="white"/>
+  </g>
+</svg>

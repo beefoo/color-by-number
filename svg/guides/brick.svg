@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42 44">
+  <defs>
+    <style>
+      .number {
+        display: none;
+        font-size: 12px;
+        font-family: ArialMT, Arial;
+      }
+    </style>
+  </defs>
+  <g id="colors">
+    <rect id="top" width="42" height="22"/>
+    <rect id="bottomLeft" y="22" width="21" height="22"/>
+    <rect id="bottomRight" x="21.04" y="22" width="21" height="22"/>
+  </g>
+  <g id="numbers">
+    <text data-display="yes" data-fill="#top" class="number" data-x="20" data-y="11" transform="translate(17.21 15)">1</text>
+    <text data-display="yes" data-fill="#bottomLeft" class="number" data-x="0" data-y="33" transform="translate(-3.34 36.77)">2</text>
+    <text data-display="no" data-fill="#bottomRight"  class="number" data-x="42" data-y="33" transform="translate(38.61 36.05)">2</text>
+  </g>
+  <g id="main">
+    <path class="pattern" d="M0,0H42V44H0ZM1,1H41V21H1ZM0,23H20V43H0Zm22,0H42V43H22Z" fill-rule="evenodd" fill="white"/>
+  </g>
+</svg>
