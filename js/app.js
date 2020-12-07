@@ -224,10 +224,6 @@ var App = (function() {
       _this.updateDisplayLayers();
     });
 
-    $('input[name="zoom"]').on('input', function(e){
-      _this.zoom(parseFloat($(this).val()));
-    });
-
     $('.download-png').on('click', function(e){
       if (_this.isDownloading) {
         console.log('Already downloading...');
@@ -243,6 +239,11 @@ var App = (function() {
       }
       _this.downloadSvg($(this));
     });
+
+    // $('input[name="zoom"]').on('input', function(e){
+    //   _this.zoom(parseFloat($(this).val()));
+    // });
+    panzoom(this.$svgPositioner[0]);
 
   };
 
