@@ -435,6 +435,8 @@ var App = (function() {
     var outHeight = outWidth / aspectRatio;
     var rowCount = Math.floor(outHeight / pat.height);
     outHeight = pat.height * rowCount;
+    var pWidth = 1.0 / columnCount;
+    var pHeight = 1.0 / rowCount;
 
     $svg.attr('width', outWidth);
     $svg.attr('height', outHeight);
@@ -456,7 +458,9 @@ var App = (function() {
     // add definitions
     html += '<defs>';
       // add main pattern
-      html += pat.patternHtml;
+      html += '<pattern id="main-pattern" x="0" y="0" width="'+pWidth+'" height="'+pHeight+'">'
+        html += pat.patternHtml;
+      html += '</pattern>';
       // add shape patterns
       $.each(pat.points, function(i, p){
         html += p.fillShapeHtml;
@@ -471,7 +475,6 @@ var App = (function() {
     // html += '</g>';
 
     var cHtml = '<g id="colors">';
-    var pHtml = '<g id="lines">';
     var nHtml = '<g id="numbers">';
 
     // // add numbers
@@ -490,30 +493,28 @@ var App = (function() {
           var pY = p.y + y;
           var nx = clamp(pX / artWidth);
           var ny = clamp(pY / outHeight);
+          // add palette color
           var pIndex = getPaletteColor(nx, ny, pixels, srcWidth, srcHeight, palette);
           var fillColor = rgbToHex(palette[pIndex]);
           cHtml += '<use xlink:href="'+p.fillShapeId+'" transform="translate('+x+','+y+')" fill="'+fillColor+'"/>';
+          // add number text
           if (p.showNumber){
             var tX = p.tx + x;
             var tY = p.ty + y;
             nHtml += '<text transform="translate('+tX+' '+tY+')" style="font-size: 12px">'+(pIndex+1)+'</text>'
           }
         });
-        // add main pattern
-        pHtml += '<use xlink:href="#main" transform="translate('+x+','+y+')"/>';
-        // add text
       }
     }
     // html += '</g>';
 
     cHtml += '</g>';
-    pHtml += '</g>';
     nHtml += '</g>';
 
     // add colors
     html += cHtml;
     // add main pattern
-    html += pHtml;
+    html += '<rect x="0" y="0" width="'+artWidth+'" height="'+outHeight+'" fill="url(#main-pattern)"/>';
     // add numbers
     html += nHtml;
 
