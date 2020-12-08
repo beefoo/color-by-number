@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 26">
+  <defs>
+    <style>
+      .number {
+        display: none;
+        font-family: ArialMT, Arial;
+        font-size: 12px;
+      }
+    </style>
+  </defs>
+  <g id="colors">
+    <polygon id="center" points="16.96 12 16.96 5.5 19.28 2 23 0.77 27.3 2.73 28.99 5.5 28.99 12 28.99 17.97 27.12 21.18 23 23.32 19.55 22 16.96 18.5 16.96 12"/>
+    <polygon id="bottom" points="0.83 26 12.95 26 12.95 18.24 10.1 14.58 6.89 13.87 2.08 16.2 0.83 19.94 0.83 26"/>
+    <polygon id="top" points="0.83 0 0.83 5.5 4.01 9.51 7.69 10.04 11.7 7.57 12.95 5.02 12.95 0 0.83 0"/>
+  </g>
+  <g id="numbers">
+    <text id="ncenter" class="number" data-display="yes" data-fill="#center" data-x="24" data-y="13" transform="translate(19.66 16.2)">1</text>
+    <text id="nbottom" class="number" data-display="yes" data-fill="#bottom" data-x="8" data-y="26" transform="translate(3.66 29.2)">2</text>
+    <text id="ntop" class="number" data-display="no" data-fill="#top" data-x="8" data-y="0" transform="translate(4.01 3.84)">2</text>
+  </g>
+  <g id="main">
+    <path class="pattern" d="M14,0V4A7,7,0,1,1,0,4V0H2V4A5,5,0,0,0,12,4V0Zm0,26V20A7,7,0,1,0,0,20v6H2V20a5,5,0,0,1,10,0v6ZM16,7A7,7,0,1,1,30,7V17a7,7,0,1,1-14,0Zm2,0A5,5,0,0,1,28,7V17a5,5,0,0,1-10,0Z" fill-rule="evenodd" fill="white"/>
+  </g>
+</svg>
